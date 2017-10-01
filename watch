@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+cargo watch -w src -w examples \
+            -x test \
+            -x clippy \
+            -x "fmt -- --write-mode=diff" \
+            -x "readme -o README.md"

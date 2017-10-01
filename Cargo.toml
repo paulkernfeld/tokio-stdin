@@ -1,0 +1,15 @@
+[package]
+name = "tokio-stdin"
+description = "Read from stdin as a Tokio stream"
+readme = "README.md"
+version = "0.1.0"
+authors = ["Paul Kernfeld <paulkernfeld@gmail.com>"]
+license = "MIT/Apache-2.0"
+documentation = "https://crates.io/crates/tokio-stdin"
+repository = "https://github.com/paulkernfeld/tokio-stdin"
+
+[dependencies]
+futures = "0.1"
+
+[dev-dependencies]
+tokio-timer = "0.1"
