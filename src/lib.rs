@@ -1,5 +1,16 @@
 //! Read from stdin as a Tokio stream by spawning a separate thread.
 //!
+//! ```rust
+//! extern crate futures;
+//! extern crate tokio_stdin;
+//!
+//! fn main() {
+//!     use futures::Stream;
+//!
+//!     tokio_stdin::spawn_stdin_stream_unbounded().wait();
+//! }
+//! ```
+//!
 //! As far as I know, this is currently the recommended way to do this. On Dec 29, 2016,
 //! alexcrichton [commented](https://github.com/alexcrichton/tokio-process/issues/7):
 //!
