@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! If you're on a Unix system, try something like:
 //!
 //! `yes | cargo run --example count_keys`
@@ -5,7 +6,7 @@ extern crate futures;
 extern crate tokio_stdin;
 extern crate tokio_timer;
 
-use futures::stream::{Stream, iter_ok};
+use futures::stream::{once, Stream};
 use std::time::Duration;
 use tokio_stdin::spawn_stdin_stream_unbounded;
 use tokio_timer::{Timer, TimerError};
@@ -31,13 +32,12 @@ fn main() {
     let stdin_stream = spawn_stdin_stream_unbounded()
         .map(|_| Event::Byte)
         .map_err(Error::Stdin)
-        .chain(iter_ok(vec![Event::Done]));
+        .chain(once(Ok(Event::Done)));
 
     let rate = stdin_stream.select(seconds_stream);
 
     let mut n_bytes = 0;
     let mut n_seconds = 0;
-    let mut exit = false;
 
     for event in rate.wait() {
         match event {
@@ -45,11 +45,11 @@ fn main() {
             Ok(Event::Second) => {
                 n_seconds += 1;
                 println!("{} bytes in {} seconds", n_bytes, n_seconds);
-                if exit {
-                    return;
-                }
             }
-            Ok(Event::Done) => exit = true,
+            Ok(Event::Done) => {
+                println!("{} bytes in {} seconds", n_bytes, n_seconds);
+                return;
+            }
             Err(e) => eprintln!("error {:?}", e),
         }
     }
