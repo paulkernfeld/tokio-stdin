@@ -33,8 +33,8 @@
 extern crate futures;
 
 use futures::stream::iter;
-use futures::{Future, Sink, Stream};
 use futures::sync::mpsc::{channel, unbounded, Receiver, SendError, UnboundedReceiver};
+use futures::{Future, Sink, Stream};
 use std::io::{self, Read};
 use std::thread;
 
