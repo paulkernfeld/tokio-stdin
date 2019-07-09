@@ -1,5 +1,9 @@
 # tokio-stdin
 
+*NOTE:* This library is no longer necessary. As of `tokio` 0.1.6, it is now possible to read
+from stdin without the overhead of spawning a separate thread with the `tokio::io::stdin`
+function.
+
 Read from stdin as a Tokio stream by spawning a separate thread.
 
 ```rust
